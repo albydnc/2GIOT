@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import httplib,urllib,serial,time,struct,sht31
-ser = serial.Serial("/dev/ttyS1", baudrate=9600, stopbits=1, parity="N", timeout=2)
+ser = serial.Serial("/dev/ttyS2", baudrate=9600, stopbits=1, parity="N", timeout=2)
 
 headers = {"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}
 
@@ -29,6 +29,6 @@ if lastbyte == "\xAA" and byte == "\xC0":
         try:
 	           conn.request("POST", "/update", params, headers)
 	           conn.close()
-               print "upload OK"
+                   print "upload OK"
         except:
 	           print "connection failed"
