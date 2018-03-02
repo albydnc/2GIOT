@@ -35,7 +35,7 @@ def _crc8(buffer):
         return crc & 0xFF
 
 
-def readTempHum(sht):
+def readTempHum():
         bus.write_byte_data(SHT31_I2CADDR,SHT31_MEAS_HIGHREP >> 8, SHT31_MEAS_HIGHREP & 0xFF)
         time.sleep(0.015)
         buffer = bus.read_i2c_block_data(SHT31_I2CADDR, 0, 6)
