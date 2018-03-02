@@ -40,13 +40,13 @@ def readTempHum():
         time.sleep(0.015)
         buffer = bus.read_i2c_block_data(SHT31_I2CADDR, 0, 6)
 
-        if buffer[2] != self._crc8(buffer[0:2]):
+        if buffer[2] != _crc8(buffer[0:2]):
             return (float("nan"), float("nan"))
 
         rawTemperature = buffer[0] << 8 | buffer[1]
         temperature = 175.0 * rawTemperature / 0xFFFF - 45.0
 
-        if buffer[5] != self._crc8(buffer[3:5]):
+        if buffer[5] != _crc8(buffer[3:5]):
             return (float("nan"), float("nan"))
 
         rawHumidity = buffer[3] << 8 | buffer[4]
