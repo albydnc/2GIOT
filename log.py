@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-import httplib,urllib,serial,time,struct sht31
-ser = serial.Serial("/dev/ttyUSB0", baudrate=9600, stopbits=1, parity="N", timeout=2)
+import httplib,urllib,serial,time,struct,sht31
+ser = serial.Serial("/dev/ttyS1", baudrate=9600, stopbits=1, parity="N", timeout=2)
 
 headers = {"Content-type": "application/x-www-form-urlencoded","Accept": "text/plain"}
 
@@ -10,10 +10,10 @@ ser.flushInput()
 
 byte, lastbyte = "\x00", "\x00"
 
-while lastbyte == "\xAA" and byte == "\xC0"::
+while lastbyte != "\xAA" and byte != "\xC0":
     lastbyte = byte
     byte = ser.read(size=1)
-
+if lastbyte == "\xAA" and byte == "\xC0":
         sentence = ser.read(size=8) # Read 8 more bytes
         readings = struct.unpack('<hhxxcc',sentence) # Decode the packet - big endian, 2 shorts for pm2.5 and pm10, 2 reserved bytes, checksum, message tail
 
